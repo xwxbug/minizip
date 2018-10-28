@@ -44,7 +44,7 @@ Master: [![Master Branch Status](https://api.travis-ci.org/nmoinvaz/minizip.svg?
 + Windows (Win32 & WinRT), macOS and Linux platform support.
 + Streaming interface for easy implementation of additional platforms.
 + Support for Apple's compression library ZLIB implementation.
-+ Zeroing out of local file header information.
++ Zeroing out local file header information.
 + Zip/unzip of central directory to reduce size.
 + Ability to generate and verify CMS signature for each entry.
 + Compatibility interface for older versions of minizip.
@@ -55,8 +55,7 @@ Master: [![Master Branch Status](https://api.travis-ci.org/nmoinvaz/minizip.svg?
 To generate project files for your platform:
 
 1. [Download and install](https://cmake.org/install/) cmake.
-2. [Download](https://zlib.net/) and install zlib if it is not installed on your system.
-3. Run cmake in the minizip directory.
+2. Run cmake in the minizip directory.
 
 ```
 cmake . -DBUILD_TEST=ON

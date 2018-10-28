@@ -119,6 +119,7 @@ def zip(zip_file, zip_args, files):
     cmd = '{0} {1} {2} {3}'.format(get_exec('minizip'), zip_args, zip_file, ' '.join(files))
     print cmd
     err = os.system(cmd)
+    exit(10)
     if (err != 0):
         print('Zip returned error code {0}'.format(err))
         exit(err)
@@ -215,5 +216,3 @@ if args.split:
     compression_method_tests('Disk Span', '-k 1024', '')
 if args.zipcd:
     compression_method_tests('ZipCD', '-z', '')
-
-exit(10)
