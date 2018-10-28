@@ -56,6 +56,11 @@ matrix:
         - os: osx
           compiler: clang 
           env: TOOL="-DUSE_OPENSSL=ON -DUSE_OPENSSL=ON -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DOPENSSL_INCLUDE_DIRS=/usr/local/opt/openssl/include -DOPENSSL_CRYPTO_LIBRARY=/usr/local/opt/openssl/lib/libcrypto.dylib -DOPENSSL_SSL_LIBRARY=/usr/local/opt/openssl/lib/libssl.dylib" TESTTOOL="--pkcrypt --wzaes" BUILDDIR="../build"
+        - stage: build
+          script: cmake --build .
+        - stage: test
+          script: cd test
+          script: python test.py --raw $TEST_TOOL --exe_dir=$BUILDDIR
 
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "linux"   ]]; then sudo apt-get install libbsd-dev; fi
@@ -69,7 +74,7 @@ before_script:
     - cd build
     - cmake .. -DBUILD_TEST=ON $TOOL
 
-script:
-    - cmake --build .
-    - cd ../test
-    - python test.py --raw $TEST_TOOL --exe_dir=$BUILDDIR
+stages:
+    - build
+    - test
+
