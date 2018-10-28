@@ -69,9 +69,7 @@ before_script:
     - cd build
     - cmake .. -DBUILD_TEST=ON $TOOL
 
-jobs:
-  include:
-    - stage: Build
-      script: cmake --build .
-    - stage: Test
-      script: python test.py --raw $TEST_TOOL --exe_dir=$BUILDDIR
+script:
+    - cmake --build .
+    - cd ../test
+    - python test.py --raw $TEST_TOOL --exe_dir=$BUILDDIR
