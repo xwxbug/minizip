@@ -215,3 +215,5 @@ if args.split:
     compression_method_tests('Disk Span', '-k 1024', '')
 if args.zipcd:
     compression_method_tests('ZipCD', '-z', '')
+
+exit(10)
