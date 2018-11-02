@@ -1,5 +1,5 @@
 /* mz_compat.h -- Backwards compatible interface for older versions
-   Version 2.7.0, October 28, 2018
+   Version 2.7.1, November 1, 2018
    part of the MiniZip project
 
    Copyright (C) 2010-2018 Nathan Moinvaziri
@@ -21,7 +21,7 @@
 extern "C" {
 #endif
 
-#ifdef HAVE_ZLIB
+#if defined(HAVE_ZLIB) && defined(MAX_MEM_LEVEL)
 #ifndef DEF_MEM_LEVEL
 #  if MAX_MEM_LEVEL >= 8
 #    define DEF_MEM_LEVEL 8
@@ -29,8 +29,11 @@ extern "C" {
 #    define DEF_MEM_LEVEL  MAX_MEM_LEVEL
 #  endif
 #endif
-#else
+#endif
+#ifndef MAX_WBITS
 #define MAX_WBITS     (15)
+#endif
+#ifndef DEF_MEM_LEVEL
 #define DEF_MEM_LEVEL (8)
 #endif
 

@@ -1,5 +1,5 @@
 /* mz_strm_win32.c -- Stream for filesystem access for windows
-   Version 2.7.0, October 28, 2018
+   Version 2.7.1, November 1, 2018
    part of the MiniZip project
 
    Copyright (C) 2010-2018 Nathan Moinvaziri
@@ -81,6 +81,9 @@ int32_t mz_stream_os_open(void *stream, const char *path, int32_t mode)
     if (path == NULL)
         return MZ_PARAM_ERROR;
 
+    // Some use cases require write sharing as well
+    share_mode |= FILE_SHARE_WRITE;
+
     if ((mode & MZ_OPEN_MODE_READWRITE) == MZ_OPEN_MODE_READ)
     {
         desired_access = GENERIC_READ;
@@ -98,10 +101,12 @@ int32_t mz_stream_os_open(void *stream, const char *path, int32_t mode)
     }
     else
     {
-        return MZ_OPEN_ERROR;
+        return MZ_PARAM_ERROR;
     }
 
-    path_wide = mz_os_unicode_string_create(path);
+    path_wide = mz_os_unicode_string_create(path, MZ_ENCODING_UTF8);
+    if (path_wide == NULL)
+        return MZ_PARAM_ERROR;
 
 #ifdef MZ_WINRT_API
     win32->handle = CreateFile2W(path_wide, desired_access, share_mode, 

@@ -1,5 +1,5 @@
 /* mz_crypt.h -- Crypto/hash functions
-   Version 2.7.0, October 28, 2018
+   Version 2.7.1, November 1, 2018
    part of the MiniZip project
 
    Copyright (C) 2010-2018 Nathan Moinvaziri
@@ -33,18 +33,17 @@ void     mz_crypt_sha_delete(void **handle);
 void     mz_crypt_aes_reset(void *handle);
 int32_t  mz_crypt_aes_encrypt(void *handle, uint8_t *buf, int32_t size);
 int32_t  mz_crypt_aes_decrypt(void *handle, uint8_t *buf, int32_t size);
-int32_t  mz_crypt_aes_set_key(void *handle, const void *key, int32_t key_length);
+int32_t  mz_crypt_aes_set_encrypt_key(void *handle, const void *key, int32_t key_length);
+int32_t  mz_crypt_aes_set_decrypt_key(void *handle, const void *key, int32_t key_length);
 void     mz_crypt_aes_set_mode(void *handle, int32_t mode);
-void     mz_crypt_aes_set_algorithm(void *handle, uint16_t algorithm);
 void*    mz_crypt_aes_create(void **handle);
 void     mz_crypt_aes_delete(void **handle);
 
 void     mz_crypt_hmac_reset(void *handle);
-int32_t  mz_crypt_hmac_begin(void *handle);
+int32_t  mz_crypt_hmac_init(void *handle, const void *key, int32_t key_length);
 int32_t  mz_crypt_hmac_update(void *handle, const void *buf, int32_t size);
 int32_t  mz_crypt_hmac_end(void *handle, uint8_t *digest, int32_t digest_size);
 int32_t  mz_crypt_hmac_copy(void *src_handle, void *target_handle);
-int32_t  mz_crypt_hmac_set_key(void *handle, const void *key, int32_t key_length);
 void     mz_crypt_hmac_set_algorithm(void *handle, uint16_t algorithm);
 void*    mz_crypt_hmac_create(void **handle);
 void     mz_crypt_hmac_delete(void **handle);
